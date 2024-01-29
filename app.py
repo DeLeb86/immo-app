@@ -41,7 +41,6 @@ async def root():
 async def predict(data:Property):
     df=pd.DataFrame.from_dict(jsonable_encoder(data),orient="index").transpose()
     df=df.reindex(columns=["PostalCode"]+model.feature_names_in_.tolist())
-    print(df.head())
     df=feature_engineering(df)
     df.drop("PostalCode",axis=1,inplace=True)
     df,e=encode_dataframe(df,encoder_struct)
